@@ -10,7 +10,13 @@ Netacademia snake után önállóan
  - elkapja a bilentyű leütéseket és továbbítja Model-be
 
 - mit csinál a Model
- -átveszi a billentyűparancsokat
+ - átveszi a billentyűparancsokat
  - tartalmazza a játéklogikát
 
--
+- a Snake_10 project-en belül csinálunk egy Model foldert
+- a Model folderben csinálunk egy Arena osztályt
+
+- az xaml-ben feliratkozunk a KeyDown eseményre, a Window_KeyDown fgv-t fogja meghivni
+- ez a fgv az xaml.cs-ben van definiálva, és meghívja az Arena-ban levő KeyDown(e.Key) fgv-t
+ami valójában figyeli hogy leütötték-e a nyíl billentyűt
+
