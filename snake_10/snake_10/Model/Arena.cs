@@ -13,9 +13,21 @@ namespace snake_10.Model
     /// </summary>
     class Arena
     {
+        private MainWindow View;
+
+        /// <summary>
+        /// konstruktorfgv egy paraméterrel
+        /// </summary>
+        /// <param name="view">az ablak ami létrehozta az Arena példányát</param>
+        public Arena(MainWindow view)
+        {
+            this.View = view;
+            View.GamePlayTextBlock.Visibility = System.Windows.Visibility.Visible;
+        }
+
         internal void KeyDown(KeyEventArgs e)
         {
-            // a játék kezdetéhet a nyégy nyilbillenytyű egyikének lenyomása kell
+            // a játék kezdetéhet a négy nyilbillenytyű egyikének lenyomása kell
             switch (e.Key)
             {
                 
@@ -23,8 +35,11 @@ namespace snake_10.Model
                 case Key.Up:
                 case Key.Right:
                 case Key.Down:
+                    View.GamePlayTextBlock.Visibility = System.Windows.Visibility.Hidden;
                     Console.WriteLine(e.Key);
                     break;
+
+                    
                 
                 
             }

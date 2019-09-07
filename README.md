@@ -20,3 +20,10 @@ Netacademia snake után önállóan
 - ez a fgv az xaml.cs-ben van definiálva, és meghívja az Arena-ban levő KeyDown(e.Key) fgv-t
 ami valójában figyeli hogy leütötték-e a nyíl billentyűt
 
+- az xaml-ben megcsináljuk a 20x20 kockából álló mezőt a 450x450 területű MainWindow-ban 
+
+- nugets-el telepítjük a fontawesome-ot
+ - MainWindow-ban megadjuk a névteret: xmlns:fa="http..."  (megadja)
+ - minden kockába teszünk ikont:	
+   -az Arena gridbe: <fa:ImageAwesome Icon = "SquareOutline" Grid.Column="0" Grid.Row="0"
+   és így tovább

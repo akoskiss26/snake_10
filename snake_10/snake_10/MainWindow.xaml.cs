@@ -26,7 +26,11 @@ namespace snake_10
         public MainWindow()
         {
             InitializeComponent();
-            arena = new Arena();
+
+            //Amikor létrehozzuk a játékmenetet, paraméterként átadjuk a (képernyőt) MainWindow-t
+            arena = new Arena(this);
+
+            
 
         }
 
