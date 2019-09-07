@@ -20,6 +20,7 @@ Netacademia snake után önállóan
 - ez a fgv az xaml.cs-ben van definiálva, és meghívja az Arena-ban levő KeyDown(e.Key) fgv-t
 ami valójában figyeli hogy leütötték-e a nyíl billentyűt
 
+### Elkészítjük a játékmezőt
 - az xaml-ben megcsináljuk a 20x20 kockából álló mezőt a 450x450 területű MainWindow-ban 
 
 - nugets-el telepítjük a fontawesome-ot
