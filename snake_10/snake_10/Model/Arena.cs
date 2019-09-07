@@ -22,7 +22,7 @@ namespace snake_10.Model
         public Arena(MainWindow view)
         {
             this.View = view;
-            View.GamePlayTextBlock.Visibility = System.Windows.Visibility.Visible;
+            View.GamePlayBorder.Visibility = System.Windows.Visibility.Visible;
         }
 
         internal void KeyDown(KeyEventArgs e)
@@ -35,7 +35,7 @@ namespace snake_10.Model
                 case Key.Up:
                 case Key.Right:
                 case Key.Down:
-                    View.GamePlayTextBlock.Visibility = System.Windows.Visibility.Hidden;
+                    View.GamePlayBorder.Visibility = System.Windows.Visibility.Hidden;
                     Console.WriteLine(e.Key);
                     break;
 

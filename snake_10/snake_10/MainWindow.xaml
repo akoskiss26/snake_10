@@ -9,13 +9,7 @@
         KeyDown="Window_KeyDown"
         Title="MainWindow" Height="450" Width="450">
     <Grid>
-        <TextBlock 
-            x:Name="GamePlayTextBlock"
-            FontSize="30" 
-            TextAlignment="Center" 
-            Visibility="Hidden">
-            A játék indítása a nyílgombok bármelyikével lehetséges
-        </TextBlock>
+        
 
         <Grid x:Name="ArenaGrid">
             <Grid.ColumnDefinitions>
@@ -486,5 +480,18 @@
             <fa:ImageAwesome Icon="SquareOutline" Grid.Column="19" Grid.Row="19" />
 
         </Grid>
+        <Border x:Name="GamePlayBorder"
+                Margin="60"
+                Background="Aquamarine">
+            <TextBlock 
+            x:Name="GamePlayTextBlock"
+            FontSize="30" 
+            TextAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                TextWrapping="Wrap"> 
+            A játék indítása a nyílgombok bármelyikével lehetséges
+            </TextBlock>
+        </Border>
     </Grid>
 </Window>
