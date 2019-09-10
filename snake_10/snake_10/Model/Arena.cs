@@ -35,15 +35,24 @@ namespace snake_10.Model
                 case Key.Up:
                 case Key.Right:
                 case Key.Down:
-                    View.GamePlayBorder.Visibility = System.Windows.Visibility.Hidden;
+                    StartOfGame();
                     Console.WriteLine(e.Key);
                     break;
 
-                    
                 
                 
             }
 
+        }
+
+        private void StartOfGame()
+        {
+            View.GamePlayBorder.Visibility = System.Windows.Visibility.Hidden;
+            var cell = View.ArenaGrid.Children[1];
+            var image = (FontAwesome.WPF.ImageAwesome)cell;
+            image.Icon = FontAwesome.WPF.FontAwesomeIcon.CircleOutline;
+            
+            
         }
     }
 }

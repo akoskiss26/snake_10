@@ -28,3 +28,9 @@ ami valójában figyeli hogy leütötték-e a nyíl billentyűt
  - minden kockába teszünk ikont:	
    -az Arena gridbe: <fa:ImageAwesome Icon = "SquareOutline" Grid.Column="0" Grid.Row="0"
    és így tovább
+
+
+## a kígyó fejének megjelenítése:
+ [] AZ ArenaGrid.Children[] gyűjtemény egy tagját kivesszük, és az általános UIElement típusból átalakítjuk
+	(majdnem konvertáljuk) FontAwesome.WPF.ImageAwesome osztályúvá (típusuvá)
+ [] ennek az típusváltoztatott elemnek már van Icon tulajdonsága, és ezt változtatjuk pl. circle-re a SquareOutline-ról
