@@ -31,6 +31,13 @@ ami valójában figyeli hogy leütötték-e a nyíl billentyűt
 
 
 ## a kígyó fejének megjelenítése:
- [] AZ ArenaGrid.Children[] gyűjtemény egy tagját kivesszük, és az általános UIElement típusból átalakítjuk
+ - [] AZ ArenaGrid.Children[n] gyűjtemény egy tagját kivesszük, és az általános UIElement típusból átalakítjuk
 	(majdnem konvertáljuk) FontAwesome.WPF.ImageAwesome osztályúvá (típusuvá)
- [] ennek az típusváltoztatott elemnek már van Icon tulajdonsága, és ezt változtatjuk pl. circle-re a SquareOutline-ról
+ - [] ennek az típusváltoztatott elemnek már van Icon tulajdonsága, és ezt változtatjuk pl. circle-re a SquareOutline-ról
+
+ ### megcsináljuk a snake osztályt (a Model kvtárba)
+ - a snake osztály tartalmazza a kígyó tulajdonságait:
+		ArenaPosition HeadPosition - prop a fej poziciójára 
+		SnakeHeadDirectionEnum HeadDirection - enum a fej mozgásának irányára
+
+

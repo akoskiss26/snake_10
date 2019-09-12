@@ -14,6 +14,7 @@ namespace snake_10.Model
     class Arena
     {
         private MainWindow View;
+        private Snake Snake;
 
         /// <summary>
         /// konstruktorfgv egy paraméterrel
@@ -23,6 +24,9 @@ namespace snake_10.Model
         {
             this.View = view;
             View.GamePlayBorder.Visibility = System.Windows.Visibility.Visible;
+
+            //példányosítunk egy snake-et
+            Snake = new Snake(10, 10);
         }
 
         internal void KeyDown(KeyEventArgs e)
