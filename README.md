@@ -40,4 +40,13 @@ ami valójában figyeli hogy leütötték-e a nyíl billentyűt
 		ArenaPosition HeadPosition - prop a fej poziciójára 
 		SnakeHeadDirectionEnum HeadDirection - enum a fej mozgásának irányára
 
+### megcsináljuk a pendulum-ot
+- a pendulum az arena konstruktorában lesz
+- minden taktjelére lefut a fgv, ami lépteti a kígyót (ItsTimeToDisplay) 
+
+### a kígyó mozgatása
+- az ItsTimeToDisplay fgv-ben switch-el szelektáljuk a megnyomott nyíl gombot, és annak megfelelően számoljuk a HeadPosition-t
+
+
+
 
