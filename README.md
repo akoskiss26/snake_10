@@ -46,6 +46,12 @@ ami valójában figyeli hogy leütötték-e a nyíl billentyűt
 
 ### a kígyó mozgatása
 - az ItsTimeToDisplay fgv-ben switch-el szelektáljuk a megnyomott nyíl gombot, és annak megfelelően számoljuk a HeadPosition-t
+- a griden a fej  megjelenítést a ShowSneakHead fgv-be szerveztük, ehhez még gyártottunk
+egy icon enum-ot, amivel jelezzük h. milyen ikont akarunk megjeleníteni a fgv-el
+- eltüntetjük a régi fejet, helyette test ikon lesz
+
+### a kígyó test megjelenítése
+ - a test adatait egy listában tároljuk, melynek elemei ArenaPosition típusuak: List<ArenaPosition> Body
 
 
 

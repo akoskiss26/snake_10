@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace snake_10.Model
@@ -18,6 +19,7 @@ namespace snake_10.Model
         private Snake Snake;
         private DispatcherTimer pendulum;
         private bool isGameStarted;
+        private ArenaPosition CurrentPosition;
 
         /// <summary>
         /// konstruktorfgv egy paraméterrel
@@ -38,10 +40,10 @@ namespace snake_10.Model
 
         private void ItsTimeToDisplay(object sender, EventArgs e)
         {
-            //irányítjuk a kígyó fejét:
+            //megjegyezzük a fej pozicióját
+            CurrentPosition = new ArenaPosition(Snake.HeadPosition.RowPosition, Snake.HeadPosition.ColumnPosition);
 
-
-
+            //a fej új poziciója:
             switch (Snake.HeadDirection)
             {
                 case SnakeHeadDirerctionEnum.Up:
@@ -58,13 +60,38 @@ namespace snake_10.Model
                     break;
                 case SnakeHeadDirerctionEnum.InPlace:
                     break;
-                
+
             }
 
+            ShowSnakeHead(Snake.HeadPosition.RowPosition, Snake.HeadPosition.ColumnPosition, IconEnum.Head);
 
-            var cell = View.ArenaGrid.Children[Snake.HeadPosition.RowPosition*20 + Snake.HeadPosition.ColumnPosition];
+            
+            // töröljük a régi fejet:
+            ShowSnakeHead(CurrentPosition.RowPosition, CurrentPosition.ColumnPosition, IconEnum.Body);
+
+        }
+
+        
+
+        private void ShowSnakeHead(int rowPosition, int columnPosition, IconEnum icon)
+        {
+            var cell = View.ArenaGrid.Children[rowPosition * 20 + columnPosition];
             var image = (FontAwesome.WPF.ImageAwesome)cell;
-            image.Icon = FontAwesome.WPF.FontAwesomeIcon.CircleOutline;
+            switch (icon)
+            {
+                case IconEnum.Head:
+                    image.Icon = FontAwesome.WPF.FontAwesomeIcon.CircleOutline;
+                    break;
+                case IconEnum.Body:
+                    image.Icon = FontAwesome.WPF.FontAwesomeIcon.CircleOutline;
+                    image.Foreground = Brushes.Gray;
+                    break;
+                case IconEnum.Empty:
+                    image.Icon = FontAwesome.WPF.FontAwesomeIcon.CircleOutline;
+                    break;
+                
+            }
+            
         }
 
         internal void KeyDown(KeyEventArgs e)
