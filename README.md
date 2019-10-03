@@ -52,6 +52,15 @@ egy icon enum-ot, amivel jelezzük h. milyen ikont akarunk megjeleníteni a fgv-
 
 ### a kígyó test megjelenítése
  - a test adatait egy listában tároljuk, melynek elemei ArenaPosition típusuak: List<ArenaPosition> Body
+	itt vigyázunk, hogy az object reference enull hiba elkerülésére példányosítani kell egy ilyet az osztály konstruktorban 
+ - ha hatnál nagyobb lenne a kígyó, törölnünk kell a végét
+ 
+### ütközések kezelése
+ - a kígyó feje a pályán kívülre kerül: figyeljük a fej row, column poziciót,
+   ha meghaladja a határértékeket (0, 19) akkor vége a játéknak
+ - a kígyó saját magát keresztezi: a fej pozicióját összevetjük a Body-ban tárolt poziciókkal, 
+   ha egyezés van, vége a játéknak
+   Ez megcsinálható foreach ciklussal, vagy egyszerűbben Linq alapon: Snake.Body.Any(x=> x.rowPosition == Snake.HeadPosition. RowPosition && ....) 
 
 
 

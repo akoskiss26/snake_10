@@ -20,6 +20,9 @@ namespace snake_10.Model
         private DispatcherTimer pendulum;
         private bool isGameStarted;
         private ArenaPosition CurrentPosition;
+        private int RowCount;
+        private int ColumnCount;
+        
 
         /// <summary>
         /// konstruktorfgv egy paraméterrel
@@ -36,10 +39,20 @@ namespace snake_10.Model
             pendulum = new DispatcherTimer(TimeSpan.FromMilliseconds(300), DispatcherPriority.Normal, ItsTimeToDisplay, Dispatcher.CurrentDispatcher);
 
             isGameStarted = false;
+            RowCount = 20;
+            ColumnCount = 20;
+          
         }
+
+
 
         private void ItsTimeToDisplay(object sender, EventArgs e)
         {
+
+            if (!isGameStarted)
+            {
+                return;
+            }
             //megjegyezzük a fej pozicióját
             CurrentPosition = new ArenaPosition(Snake.HeadPosition.RowPosition, Snake.HeadPosition.ColumnPosition);
 
@@ -63,15 +76,46 @@ namespace snake_10.Model
 
             }
 
+            //falnak ütközés detektálása:
+
+            if (Snake.HeadPosition.RowPosition < 1 || Snake.HeadPosition.RowPosition > RowCount - 1
+                || Snake.HeadPosition.ColumnPosition < 1 || Snake.HeadPosition.ColumnPosition > ColumnCount - 1)
+            {
+                EndOfGame();
+                return;
+            }
+
+            //testtel ütközés detektálása:
+            if (Snake.Body.Any(x => x.RowPosition == Snake.HeadPosition.RowPosition
+                                 && x.ColumnPosition == Snake.HeadPosition.ColumnPosition))
+            {
+                EndOfGame();
+                Console.WriteLine("saját farkába harapott");
+            }
+
             ShowSnakeHead(Snake.HeadPosition.RowPosition, Snake.HeadPosition.ColumnPosition, IconEnum.Head);
 
-            
-            // töröljük a régi fejet:
+            // a régi fejből test lett, belerakjuk a Body listába:
+            Snake.Body.Add(new ArenaPosition(CurrentPosition.RowPosition, CurrentPosition.ColumnPosition));
+
+            // töröljük a régi fejet, helytte test lesz:
             ShowSnakeHead(CurrentPosition.RowPosition, CurrentPosition.ColumnPosition, IconEnum.Body);
+
+            if (Snake.Body.Count > Snake.Lenght)
+            {
+                var end = Snake.Body[0];
+                ShowSnakeHead(end.RowPosition, end.ColumnPosition, IconEnum.Empty);
+                Snake.Body.RemoveAt(0);
+                
+            }
 
         }
 
-        
+        private void EndOfGame()
+        {
+            pendulum.Stop();
+            Console.WriteLine("End of Game");
+        }
 
         private void ShowSnakeHead(int rowPosition, int columnPosition, IconEnum icon)
         {
@@ -87,7 +131,8 @@ namespace snake_10.Model
                     image.Foreground = Brushes.Gray;
                     break;
                 case IconEnum.Empty:
-                    image.Icon = FontAwesome.WPF.FontAwesomeIcon.CircleOutline;
+                    image.Icon = FontAwesome.WPF.FontAwesomeIcon.SquareOutline;
+                    image.Foreground = Brushes.Black;
                     break;
                 
             }
@@ -133,6 +178,7 @@ namespace snake_10.Model
         private void StartOfGame()
         {
             View.GamePlayBorder.Visibility = System.Windows.Visibility.Hidden;
+            isGameStarted = true;
             
             
             
