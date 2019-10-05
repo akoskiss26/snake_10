@@ -78,8 +78,8 @@ namespace snake_10.Model
 
             //falnak ütközés detektálása:
 
-            if (Snake.HeadPosition.RowPosition < 1 || Snake.HeadPosition.RowPosition > RowCount - 1
-                || Snake.HeadPosition.ColumnPosition < 1 || Snake.HeadPosition.ColumnPosition > ColumnCount - 1)
+            if (Snake.HeadPosition.RowPosition < 0 || Snake.HeadPosition.RowPosition > RowCount - 1
+                || Snake.HeadPosition.ColumnPosition < 0 || Snake.HeadPosition.ColumnPosition > ColumnCount - 1)
             {
                 EndOfGame();
                 return;
@@ -92,6 +92,17 @@ namespace snake_10.Model
                 EndOfGame();
                 Console.WriteLine("saját farkába harapott");
             }
+
+
+            //testtel ütközés 2.
+            //if (Snake.Body.Any(x => x == Snake.HeadPosition))
+            //{
+            //    EndOfGame();
+            //    Console.WriteLine("saj fark har");
+            //}
+
+
+
 
             ShowSnakeHead(Snake.HeadPosition.RowPosition, Snake.HeadPosition.ColumnPosition, IconEnum.Head);
 
