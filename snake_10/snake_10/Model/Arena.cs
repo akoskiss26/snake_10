@@ -22,7 +22,9 @@ namespace snake_10.Model
         private ArenaPosition CurrentPosition;
         private int RowCount;
         private int ColumnCount;
-        
+        private Random Random;
+        private Foods Foods;
+
 
         /// <summary>
         /// konstruktorfgv egy paraméterrel
@@ -35,6 +37,10 @@ namespace snake_10.Model
 
             //példányosítunk egy snake-et
             Snake = new Snake(10, 10);
+            //példányosítunk egy random generátort
+            Random = new Random();
+            //példányosítunk egy étel osztályt
+            Foods = new Foods();
 
             pendulum = new DispatcherTimer(TimeSpan.FromMilliseconds(300), DispatcherPriority.Normal, ItsTimeToDisplay, Dispatcher.CurrentDispatcher);
 
@@ -74,6 +80,8 @@ namespace snake_10.Model
                 case SnakeHeadDirerctionEnum.InPlace:
                     break;
 
+                    
+
             }
 
             //falnak ütközés detektálása:
@@ -94,7 +102,7 @@ namespace snake_10.Model
             }
 
 
-            //testtel ütközés 2.
+            //testtel ütközés 2. (levél PG-nek)
             //if (Snake.Body.Any(x => x == Snake.HeadPosition))
             //{
             //    EndOfGame();
@@ -119,6 +127,9 @@ namespace snake_10.Model
                 Snake.Body.RemoveAt(0);
                 
             }
+
+
+            //Elemózsia kiosztása
 
         }
 
@@ -145,7 +156,11 @@ namespace snake_10.Model
                     image.Icon = FontAwesome.WPF.FontAwesomeIcon.SquareOutline;
                     image.Foreground = Brushes.Black;
                     break;
-                
+                case IconEnum.Food:
+                    image.Icon = FontAwesome.WPF.FontAwesomeIcon.Apple;
+                    image.Foreground = Brushes.Red;
+                    break;
+
             }
             
         }
@@ -190,9 +205,36 @@ namespace snake_10.Model
         {
             View.GamePlayBorder.Visibility = System.Windows.Visibility.Hidden;
             isGameStarted = true;
-            
-            
-            
+
+
+
+            //kezdő elemózsia helye:
+
+
+
+
+            // Foods.FoodPositions.Add(new ArenaPosition(randomRow, randomColumn));
+            //fenti helyett:
+            // Foods.Add(randomRow, randomColumn);
+
+            GetFood();
+
+        }
+
+        private void GetFood()
+        {
+            int randomRow = Random.Next(RowCount);
+            int randomColumn = Random.Next(ColumnCount);
+            while ((Snake.HeadPosition.RowPosition == randomRow && Snake.HeadPosition.ColumnPosition == randomColumn
+                || Snake.Body.Any(x => x.RowPosition == randomRow && x.ColumnPosition == randomColumn)))
+            {
+                randomRow = Random.Next(RowCount);
+                randomColumn = Random.Next(ColumnCount);
+            }
+
+            Foods.Add(randomRow, randomColumn);
+
+            ShowSnakeHead(randomRow, randomColumn, IconEnum.Food);
         }
     }
 }

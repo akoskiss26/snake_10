@@ -7,6 +7,7 @@
     {
         Head,
         Body,
-        Empty
+        Empty,
+        Food
     }
 }

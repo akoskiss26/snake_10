@@ -62,6 +62,10 @@ egy icon enum-ot, amivel jelezzük h. milyen ikont akarunk megjeleníteni a fgv-
    ha egyezés van, vége a játéknak
    Ez megcsinálható foreach ciklussal, vagy egyszerűbben Linq alapon: Snake.Body.Any(x=> x.rowPosition == Snake.HeadPosition. RowPosition && ....) 
 
-
+### elemózsia elhelyezése és megevése
+ - a játéktéren véletlenszerűen elhelyezünk elemózsiát ennek helyét listában tároljuk (ha később több elemózsia lenne egyidőben a játéktéren)
+ -- készítünk egy véletlenszám generátort
+ -- megcsináljuk a GetFood() fgv-t az Arena-ban, ez generál egy ArenaPositon-t, megnézi hogy ez a pozició foglalt-e, ha igen: generál újat, ha nem: 
+    ezt a poziciót beírja a Foods listába (mint elemózsia pozicióját), és megjelenít ezen a pozición egy piros almát. A fgv-t először a StartOfGame() fgv-ből hívjuk
 
 
