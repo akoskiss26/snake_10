@@ -24,6 +24,10 @@ namespace snake_10.Model
         private int ColumnCount;
         private Random Random;
         private Foods Foods;
+        private int Decrement;
+        private int DecrementStep; // ennyivel csökken a taktjel periódusideje msec
+        private int NumberOfEaten;
+        private int Speed;
 
 
         /// <summary>
@@ -42,15 +46,27 @@ namespace snake_10.Model
             //példányosítunk egy étel osztályt
             Foods = new Foods();
 
-            pendulum = new DispatcherTimer(TimeSpan.FromMilliseconds(300), DispatcherPriority.Normal, ItsTimeToDisplay, Dispatcher.CurrentDispatcher);
+            
 
             isGameStarted = false;
             RowCount = 20;
             ColumnCount = 20;
-          
+            Decrement = 0;
+            DecrementStep = 20;
+            NumberOfEaten = 0;
+
         }
 
+        private void PendulumStart(int numberOfEaten)
+        {
+            if (pendulum != null && pendulum.IsEnabled)
+            {
+                pendulum.Stop();
+            }
 
+            int speed = 500 - numberOfEaten * DecrementStep;
+            pendulum = new DispatcherTimer(TimeSpan.FromMilliseconds(speed),DispatcherPriority.Normal, ItsTimeToDisplay, Dispatcher.CurrentDispatcher);
+        }
 
         private void ItsTimeToDisplay(object sender, EventArgs e)
         {
@@ -128,16 +144,42 @@ namespace snake_10.Model
                 
             }
 
+            //van-e evés esemény
 
-            //Elemózsia kiosztása
+            //ütközött-e a fej elemózsiával
+            var food = Foods.FoodPositions[0];
+            if (Snake.HeadPosition.RowPosition == food.RowPosition && Snake.HeadPosition.ColumnPosition == food.ColumnPosition )
+            {
+                Eating(food.RowPosition, food.ColumnPosition);
+            }
+            
 
         }
+
+
+
+        private void Eating(int rowPosition, int columnPosition)
+        {
+            Console.WriteLine("evés van");
+            Foods.FoodPositions.RemoveAt(0);
+            GetFood();
+            Snake.Lenght = Snake.Lenght + 1;
+            NumberOfEaten = NumberOfEaten + 1;
+            PendulumStart(NumberOfEaten);
+
+        }
+
+
+
 
         private void EndOfGame()
         {
             pendulum.Stop();
             Console.WriteLine("End of Game");
         }
+
+
+
 
         private void ShowSnakeHead(int rowPosition, int columnPosition, IconEnum icon)
         {
@@ -205,14 +247,11 @@ namespace snake_10.Model
         {
             View.GamePlayBorder.Visibility = System.Windows.Visibility.Hidden;
             isGameStarted = true;
+            PendulumStart(NumberOfEaten);
 
 
 
             //kezdő elemózsia helye:
-
-
-
-
             // Foods.FoodPositions.Add(new ArenaPosition(randomRow, randomColumn));
             //fenti helyett:
             // Foods.Add(randomRow, randomColumn);
@@ -220,6 +259,11 @@ namespace snake_10.Model
             GetFood();
 
         }
+
+
+
+
+
 
         private void GetFood()
         {
@@ -233,8 +277,9 @@ namespace snake_10.Model
             }
 
             Foods.Add(randomRow, randomColumn);
-
             ShowSnakeHead(randomRow, randomColumn, IconEnum.Food);
+
+            
         }
     }
 }

@@ -62,10 +62,25 @@ egy icon enum-ot, amivel jelezzük h. milyen ikont akarunk megjeleníteni a fgv-
    ha egyezés van, vége a játéknak
    Ez megcsinálható foreach ciklussal, vagy egyszerűbben Linq alapon: Snake.Body.Any(x=> x.rowPosition == Snake.HeadPosition. RowPosition && ....) 
 
-### elemózsia elhelyezése és megevése
+### elemózsia elhelyezése 
  - a játéktéren véletlenszerűen elhelyezünk elemózsiát ennek helyét listában tároljuk (ha később több elemózsia lenne egyidőben a játéktéren)
  -- készítünk egy véletlenszám generátort
  -- megcsináljuk a GetFood() fgv-t az Arena-ban, ez generál egy ArenaPositon-t, megnézi hogy ez a pozició foglalt-e, ha igen: generál újat, ha nem: 
     ezt a poziciót beírja a Foods listába (mint elemózsia pozicióját), és megjelenít ezen a pozición egy piros almát. A fgv-t először a StartOfGame() fgv-ből hívjuk
 
-
+### elemózsia megevése
+- figyeljük hogy a kígyófej poziciója egybeesik-e a foods pozicióval. Ha igen, akkor:
+	* eltüntetjük az elemózsiát a játéktérről (a pozicióban átíródik fejre, nem kell csinálni semmit)
+	* töröljük az elemózsiát a FoodPositions listáról
+	* új elemózsiát generálunk
+	* megnyújtjuk eggyel a kígyót
+	* gyorsítjuk a kígyót
+- megvalósítás:
+	* ItsTimeToDisplay()-ben diszkutáljuk hogy a fej ütközött-e elemózsiával
+	* Ha igen, meghívjuk az Eating() fgv-t, ebben:
+		* FoodPositions[0] töröljük
+		* GetFood() fgv-el újat generálunk és megjelenítjük
+		* kígyó hosszát megnöveljük Lenght = Lenght+1
+	* a pendulum példányosítást kivesszük külön fgv-be (PendulumStart)
+	* A PendulumStart(x) fgv paramétere a megevett ételek száma, ebből számolja a fgv a taktjel sebességét
+	* A PendulumStart(x) fgv-t meghívjuk a StartOfGame()-ben és az Eating(x,y) fgv-ben 
