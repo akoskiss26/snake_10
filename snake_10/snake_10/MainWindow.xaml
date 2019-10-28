@@ -11,17 +11,18 @@
     <Grid>
         
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <Canvas x:Name="ArenaCanvas"
-                    Background="Aqua">
-            </Canvas>
+                    Background="Aqua"
+            />
         </Grid>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="2">
             <Grid>
 
 

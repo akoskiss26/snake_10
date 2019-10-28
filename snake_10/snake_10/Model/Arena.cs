@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace snake_10.Model
@@ -162,6 +165,8 @@ namespace snake_10.Model
         {
             Console.WriteLine("evés van");
             Foods.FoodPositions.RemoveAt(0);
+            var foodToDelete = Foods.Remove(rowPosition, columnPosition);
+            EraseFromCanvas(foodToDelete.Paint);
             GetFood();
             Snake.Lenght = Snake.Lenght + 1;
             NumberOfEaten = NumberOfEaten + 1;
@@ -276,10 +281,39 @@ namespace snake_10.Model
                 randomColumn = Random.Next(ColumnCount);
             }
 
-            Foods.Add(randomRow, randomColumn);
-            ShowSnakeHead(randomRow, randomColumn, IconEnum.Food);
+            var paint = PaintOnCanvas(randomRow, randomColumn);
 
-            
+            Foods.Add(randomRow, randomColumn, paint);
+            ShowSnakeHead(randomRow, randomColumn, IconEnum.Food);
+        }
+
+
+        /// <summary>
+        /// törli a paraméterben megadott elemet a Canvasról
+        /// </summary>
+        /// <param name="paint"></param>
+        private void EraseFromCanvas(UIElement paint)
+        {
+            View.ArenaCanvas.Children.Remove(paint);
+        }
+
+
+        /// <summary>
+        /// rajzol egy elemet a Canvas-ra
+        /// </summary>
+        /// <param name="randomRow"></param>
+        /// <param name="randomColumn"></param>
+        /// <returns>a felrajzolt elem, amit aztán törlünk</returns>
+        private UIElement PaintOnCanvas(int randomRow, int randomColumn)
+        {
+            var paint = new Ellipse();
+            paint.Height = View.ArenaCanvas.ActualHeight / RowCount;
+            paint.Width = View.ArenaCanvas.ActualWidth / ColumnCount;
+            Canvas.SetTop(paint, randomRow * paint.Height);
+            Canvas.SetLeft(paint, randomColumn * paint.Width);
+            paint.Fill = Brushes.Red;
+            View.ArenaCanvas.Children.Add(paint);
+            return paint;
         }
     }
 }

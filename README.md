@@ -84,3 +84,27 @@ egy icon enum-ot, amivel jelezzük h. milyen ikont akarunk megjeleníteni a fgv-
 	* a pendulum példányosítást kivesszük külön fgv-be (PendulumStart)
 	* A PendulumStart(x) fgv paramétere a megevett ételek száma, ebből számolja a fgv a taktjel sebességét
 	* A PendulumStart(x) fgv-t meghívjuk a StartOfGame()-ben és az Eating(x,y) fgv-ben 
+
+
+# A működés:
+ Window_KeyDown [figyeli a billentyűleütést], hívja:
+ arena.KeyDown(e) 
+   - ha még nem indult el a játék: hívja StartOfGame() -t
+   - ha már elindult beállítja a Snake.HeadDirection -t
+
+ StartOfGame() 
+   - hívja a PendulumStart(int numberOfEaten) -t
+   - hívja a GetFood() -t
+
+ PendulumStart(int numberOfEaten)
+   - ha megy, akkor leállítja a pendulum-ot
+   - újraindítja az új frekvenciával
+
+ GetFood()
+   - generál egy véletlen helyet
+   - a Grid-en ide feltesz egy food-ot:
+     - meghívja: ShowSnakeHead(randomRow, randomColumn, IconEnum.Food);
+   - a Canvas-on is feltesz egy food-ot:
+     - meghívja a PaintOnCanvas(row, col) fgvt, amely a paint-tet belerakja a View.ArenaCanvas.Children gyűjteménybe, és a paint-tel tér vissza, 
+	 - meghívja a Foods.Add(row, col, paint) -et, hogy eltároljuk a food-ot
+
