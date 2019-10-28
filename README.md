@@ -108,3 +108,27 @@ egy icon enum-ot, amivel jelezzük h. milyen ikont akarunk megjeleníteni a fgv-
      - meghívja a PaintOnCanvas(row, col) fgvt, amely a paint-tet belerakja a View.ArenaCanvas.Children gyűjteménybe, és a paint-tel tér vissza, 
 	 - meghívja a Foods.Add(row, col, paint) -et, hogy eltároljuk a food-ot
 
+
+
+
+ ItsTimeToDisplay(object sender, EventArgs e)
+   - megjegyzi a fej pozicióját
+   - a SnakeHeadDirection alapján új fejpoziciót számol
+   - Snake.HeadPosition aalapján falnak ütközés detektálása (ha igen -> EndOfGame())
+   - Snake.Body alapján testtel ütközés detektálása (ha igen -> EndOfGame)
+   - Griden új fejet megrajzolja
+   - régi fejpoziciót átrakja a Body listába
+   - régi fej helyébe testet rajzol
+   - ha megvan a test engedélyezett hossza, törli a Body[0] elemet, a test végét
+   - vizsgálja van-e evés
+     - ha van evés, meghívja: Eating(food.RowPosition, food.ColumnPosition);
+   
+
+ Eating(int rowPosition, int columnPosition)
+   - a törlendő elem poziciója alapján a Food.Remove() a törlendő elemmel tér vissza
+   - az EraseFromCanvas a törlendő elem .Paint tulajdonsága alapján törli azt a Canvas-ról
+   - az étellistáról (FoodPositions) töröljük a 0. elemet
+   - kérünk új ételt (GetFood())
+   - növeljük a kígyó hosszát
+   - növeljük a megevett ételek számát
+   - újraindítjuk a pendulum-ot (PendulumStart())

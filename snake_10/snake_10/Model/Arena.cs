@@ -164,9 +164,10 @@ namespace snake_10.Model
         private void Eating(int rowPosition, int columnPosition)
         {
             Console.WriteLine("evés van");
-            Foods.FoodPositions.RemoveAt(0);
+           // Foods.FoodPositions.RemoveAt(0);
             var foodToDelete = Foods.Remove(rowPosition, columnPosition);
             EraseFromCanvas(foodToDelete.Paint);
+            Foods.FoodPositions.RemoveAt(0);
             GetFood();
             Snake.Lenght = Snake.Lenght + 1;
             NumberOfEaten = NumberOfEaten + 1;
